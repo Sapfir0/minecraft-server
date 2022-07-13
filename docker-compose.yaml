@@ -16,7 +16,7 @@ services:
       MAX_PLAYERS: 10
       DIFFICULTY: "normal"
       TYPE: FABRIC # Set server type (vs the default of vanilla)
-      FORGEVERSION: "RECOMMENDED" # without this will be load latest
+      # FORGEVERSION: "RECOMMENDED" # without this will be load latest
       # FORGEVERSION: "41.0.80"
       ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
 
@@ -25,9 +25,9 @@ services:
     restart: unless-stopped
 
     volumes:
-    # - ./server:/data
     # use a named, managed volume for data volume
-    - mc_forge:/data
+    - ./server:/data
+    # - ./world:/world:ro
     # attach local host directory "mods" in same directory as this compose file
     # all mods in this directory get copied into /data/mods at startup
     - ./mods:/mods:ro
@@ -41,7 +41,7 @@ services:
       # RCON_HOST: mc
     volumes:
     # mount the same volume used by server, but read-only
-    - mc_forge:/data:ro
+    - ./server:/data:ro
     # use a host attached directory so that it in turn can be backed up
     # to external/cloud storage
     - ./mc-backups:/backups
@@ -86,6 +86,6 @@ services:
 
 volumes:
   # declared the named volume, but use default/local storage engine
-  mc_forge: {}
+  # mc_forge: {}
   prometheus-tsdb: {}
   grafana-lib: {}
