@@ -7,6 +7,10 @@ services:
       - 25565:25565
     environment:
       EULA: "TRUE"
+      VERSION: 1.18.2
+      TYPE: FORGE # Set server type (vs the default of vanilla)
+      # FORGEVERSION: "RECOMMENDED" # without this will be load latest
+      FORGEVERSION: "40.1.60"
       DEBUG: "FALSE"
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       ONLINE_MODE: "FALSE" # accept no license
@@ -15,10 +19,9 @@ services:
       ICON: "https://habrastorage.org/webt/db/qa/tm/dbqatmtshjk76o9gcwoks7mg51y.jpeg"
       MAX_PLAYERS: 10
       DIFFICULTY: "normal"
-      TYPE: FABRIC # Set server type (vs the default of vanilla)
-      # FORGEVERSION: "RECOMMENDED" # without this will be load latest
-      # FORGEVERSION: "41.0.80"
-      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+      OPS: "sapfir"
+      # ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+
 
     tty: true
     stdin_open: true
@@ -26,8 +29,7 @@ services:
 
     volumes:
     # use a named, managed volume for data volume
-    - ./server:/data
-    # - ./world:/world:ro
+    - mc_forge:/data
     # attach local host directory "mods" in same directory as this compose file
     # all mods in this directory get copied into /data/mods at startup
     - ./mods:/mods:ro
@@ -41,7 +43,7 @@ services:
       # RCON_HOST: mc
     volumes:
     # mount the same volume used by server, but read-only
-    - ./server:/data:ro
+    - mc_forge:/data:ro
     # use a host attached directory so that it in turn can be backed up
     # to external/cloud storage
     - ./mc-backups:/backups
@@ -86,6 +88,6 @@ services:
 
 volumes:
   # declared the named volume, but use default/local storage engine
-  # mc_forge: {}
+  mc_forge: {}
   prometheus-tsdb: {}
   grafana-lib: {}
