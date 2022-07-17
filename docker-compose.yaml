@@ -18,9 +18,10 @@ services:
       MOTD: "Alexander's Minecraft server"
       ICON: "https://habrastorage.org/webt/db/qa/tm/dbqatmtshjk76o9gcwoks7mg51y.jpeg"
       MAX_PLAYERS: 10
-      DIFFICULTY: "normal"
-      OPS: "sapfir"
-      # ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+      MAX_MEMORY: 6G
+      DIFFICULTY: "easy"
+      OPS: "sapfir" # don't work
+      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
 
 
     tty: true
