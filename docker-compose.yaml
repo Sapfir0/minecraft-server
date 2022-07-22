@@ -7,21 +7,34 @@ services:
       - 25565:25565
     environment:
       EULA: "TRUE"
+      # main
       VERSION: 1.18.2
       TYPE: FORGE # Set server type (vs the default of vanilla)
-      # FORGEVERSION: "RECOMMENDED" # without this will be load latest
+      # FORGEVERSION: "RECOMMENDED" # without this, will be load latest
       FORGEVERSION: "40.1.60"
       DEBUG: "FALSE"
+
+      # server settings
       OVERRIDE_SERVER_PROPERTIES: "TRUE"
       ONLINE_MODE: "FALSE" # accept no license
       SERVER_NAME: "Server"
       MOTD: "Alexander's Minecraft server"
       ICON: "https://habrastorage.org/webt/db/qa/tm/dbqatmtshjk76o9gcwoks7mg51y.jpeg"
-      MAX_PLAYERS: 10
-      MAX_MEMORY: 6G
       DIFFICULTY: "easy"
       OPS: "sapfir" # don't work
-      ANNOUNCE_PLAYER_ACHIEVEMENTS: "TRUE"
+
+      # optimizations
+      MAX_PLAYERS: 10
+      INIT_MEMORY: 2G
+      MAX_MEMORY: 6G
+      USE_AIKAR_FLAGS: "TRUE"
+      TZ: "Europe/Moscow"
+      ENABLE_AUTOPAUSE: "TRUE"
+      MAX_TICK_TIME: "-1"
+
+      # rcon
+      RCON_PASSWORD: "93hohatu"
+      RCON_PORT: 28016
 
 
     tty: true
@@ -56,7 +69,7 @@ services:
     command: export-for-prometheus
     environment:
       EXPORT_SERVERS: mc
-      DEBUG: "true"
+      # DEBUG: "true"
     depends_on:
       - mc
   cadvisor:
