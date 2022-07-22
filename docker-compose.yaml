@@ -84,7 +84,7 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-tsdb:/prometheus
     depends_on:
       - monitor
@@ -94,8 +94,8 @@ services:
       - "8888:3000"
     volumes:
       - grafana-lib:/var/lib/grafana
-      - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./dashboards:/etc/grafana/dashboards
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - ./config/grafana/dashboards:/etc/grafana/dashboards
     depends_on:
       - prometheus
 
