@@ -5,6 +5,8 @@ services:
     image: itzg/minecraft-server
     ports:
       - 25565:25565
+    env_file:
+      - config.env
     environment:
       EULA: "TRUE"
       # main
@@ -32,11 +34,6 @@ services:
       ENABLE_AUTOPAUSE: "TRUE"
       MAX_TICK_TIME: "-1"
 
-      # rcon
-      RCON_PASSWORD: "93hohatu"
-      RCON_PORT: 28016
-
-
     tty: true
     stdin_open: true
     restart: unless-stopped
@@ -51,10 +48,10 @@ services:
 
   backups:
     image: itzg/mc-backup
+    env_file:
+      - config.env
     environment:
       BACKUP_INTERVAL: "12h"
-      RCON_PORT: 28016
-      RCON_PASSWORD: "93hohatu"
       # instead of network_mode below, could declare RCON_HOST
       # RCON_HOST: mc
     volumes:
@@ -92,6 +89,8 @@ services:
       - monitor
   grafana:
     image: grafana/grafana-oss:${GRAFANA_VERSION:-8.3.3}
+    env_file:
+      - config.env
     ports:
       - "8888:3000"
     volumes:
@@ -116,9 +115,8 @@ services:
   #     - "8000:8000"
   #   volumes:
   #     - mc_forge:/world:ro
-  #   environment:
-  #     RCON_PASSWORD: "93hohatu"
-  #     RCON_PORT: 28016
+  #   env_file:
+  #     - config.env
   nodeexporter:
     image: prom/node-exporter:v1.0.1
     volumes:
