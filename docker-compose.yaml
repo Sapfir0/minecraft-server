@@ -54,6 +54,7 @@ services:
     environment:
       BACKUP_INTERVAL: "12h"
       RCON_PORT: 28016
+      RCON_PASSWORD: "93hohatu"
       # instead of network_mode below, could declare RCON_HOST
       # RCON_HOST: mc
     volumes:
@@ -99,7 +100,39 @@ services:
       - ./config/grafana/dashboards:/etc/grafana/dashboards
     depends_on:
       - prometheus
+  
+  telegraf:
+    image: telegraf
+    volumes:
+      - ./config/telegraf:/etc/telegraf
+    expose:
+      - 9283
+    restart: unless-stopped
+    # network_mode: "service:mc"
 
+  # minecraftexporter:
+  #   image: joshi425/minecraft_exporter
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - mc_forge:/world:ro
+  #   environment:
+  #     RCON_PASSWORD: "93hohatu"
+  #     RCON_PORT: 28016
+  nodeexporter:
+    image: prom/node-exporter:v1.0.1
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.rootfs=/rootfs'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc)($$|/)'
+    restart: unless-stopped
+    expose:
+      - 9100
 
 volumes:
   # declared the named volume, but use default/local storage engine
