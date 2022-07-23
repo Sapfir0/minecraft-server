@@ -53,6 +53,7 @@ services:
     image: itzg/mc-backup
     environment:
       BACKUP_INTERVAL: "12h"
+      RCON_PORT: 28016
       # instead of network_mode below, could declare RCON_HOST
       # RCON_HOST: mc
     volumes:
