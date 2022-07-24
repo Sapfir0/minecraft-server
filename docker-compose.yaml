@@ -1,5 +1,9 @@
 version: "3.8"
 
+networks:
+  monitor-net:
+    driver: bridge
+
 services:
   mc:
     image: itzg/minecraft-server
@@ -107,16 +111,20 @@ services:
     expose:
       - 9283
     restart: unless-stopped
-    # network_mode: "service:mc"
 
-  # minecraftexporter:
-  #   image: joshi425/minecraft_exporter
-  #   ports:
-  #     - "8000:8000"
-  #   volumes:
-  #     - mc_forge:/world:ro
-  #   env_file:
-  #     - config.env
+  minecraftexporter:
+    # image: joshi425/minecraft_exporter
+    build: ./minecraft-exporter-master
+    ports:
+      - "8000:8000"
+    volumes:
+      - mc_forge:/data/world:ro
+    env_file:
+      - config.env
+    environment:
+      RCON_HOST: mc
+    depends_on:
+      - mc
   nodeexporter:
     image: prom/node-exporter:v1.0.1
     volumes:
