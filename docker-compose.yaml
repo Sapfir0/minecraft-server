@@ -34,7 +34,7 @@ services:
 
       # rcon
       RCON_PASSWORD: "93hohatu"
-      RCON_PORT: 28016
+      RCON_PORT: 25575
 
 
     tty: true
