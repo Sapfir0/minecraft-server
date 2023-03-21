@@ -335,7 +335,6 @@ class MinecraftCollector(object):
                 yield metric
 
         for metric in self.get_server_stats():
-            print(metric)
             yield metric
 
 
