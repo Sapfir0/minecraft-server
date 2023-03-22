@@ -45,6 +45,8 @@ def add_uuid_stripes(string):
 
 class MinecraftCollector(object):
     def __init__(self):
+        print(os.listdir())
+        print(os.listdir('/data'))
         self.stats_directory = "/data/world/world/stats"
         self.player_directory = "/data/world/world/playerdata"
         self.advancements_directory = "/data/world/world/advancements"

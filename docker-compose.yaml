@@ -14,10 +14,9 @@ services:
     environment:
       EULA: "TRUE"
       # main
-      VERSION: 1.18.2
+      VERSION: 1.19.3
       TYPE: FORGE # Set server type (vs the default of vanilla)
-      # FORGEVERSION: "RECOMMENDED" # without this, will be load latest
-      FORGEVERSION: "40.1.60"
+      FORGEVERSION: "RECOMMENDED" # without this, will be load latest
       DEBUG: "FALSE"
 
       # server settings
