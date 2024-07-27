@@ -96,6 +96,8 @@ services:
       - grafana-lib:/var/lib/grafana
       - ./config/grafana/provisioning:/etc/grafana/provisioning
       - ./config/grafana/dashboards:/etc/grafana/dashboards
+    env_file:
+      - config.env
     depends_on:
       - prometheus
 
