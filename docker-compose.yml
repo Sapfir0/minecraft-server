@@ -84,7 +84,8 @@ services:
   prometheus:
     image: prom/prometheus
     volumes:
-      - ./config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    # ./config/prometheus/prometheus.yml
+      - S:/HomeApps/minecraft-server/config/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus-tsdb:/prometheus
     depends_on:
       - monitor
@@ -94,10 +95,11 @@ services:
       - "8888:3000"
     volumes:
       - grafana-lib:/var/lib/grafana
-      - ./config/grafana/provisioning:/etc/grafana/provisioning
-      - ./config/grafana/dashboards:/etc/grafana/dashboards
+      # заменить путь на .
+      - S:/HomeApps/minecraft-server/config/grafana/provisioning:/etc/grafana/provisioning
+      - S:/HomeApps/minecraft-server/config/grafana/dashboards:/etc/grafana/dashboards
     env_file:
-      - config.env
+      - stack.env
     depends_on:
       - prometheus
 
