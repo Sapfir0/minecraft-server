@@ -8,10 +8,10 @@ services:
     environment:
       EULA: "TRUE"
       # main
-      VERSION: 1.18.2
+      VERSION: 1.21
       TYPE: FORGE # Set server type (vs the default of vanilla)
-      # FORGEVERSION: "RECOMMENDED" # without this, will be load latest
-      FORGEVERSION: "40.1.60"
+      FORGEVERSION: "RECOMMENDED" # without this, will be load latest
+      # FORGEVERSION: "44.1.0"
       DEBUG: "FALSE"
 
       # server settings
@@ -69,9 +69,11 @@ services:
     command: export-for-prometheus
     environment:
       EXPORT_SERVERS: mc
+      GATHER_INTERVAL: 10s
+      GATHER_TELEGRAF_ADDRESS: telegraf:8094
+      GATHER_SERVERS: mc.hypixel.net
       # DEBUG: "true"
-    depends_on:
-      - mc
+
   cadvisor:
     image: gcr.io/cadvisor/cadvisor
     ports:
@@ -89,6 +91,7 @@ services:
       - prometheus-tsdb:/prometheus
     depends_on:
       - monitor
+ 
   grafana:
     image: grafana/grafana-oss:${GRAFANA_VERSION:-8.3.3}
     ports:
@@ -102,7 +105,13 @@ services:
       - stack.env
     depends_on:
       - prometheus
-
+  
+  telegraf:
+    image: telegraf:1.13
+    ports:
+    - 8094:8094
+    volumes:
+    - ./config/telegraf.conf:/etc/telegraf/telegraf.conf:ro
 
 volumes:
   # declared the named volume, but use default/local storage engine

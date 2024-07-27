@@ -250,7 +250,7 @@
             "mode": "palette-classic"
           },
           "custom": {
-            "axisLabel": "%",
+            "axisLabel": "cores",
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
